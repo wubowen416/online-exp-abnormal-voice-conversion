@@ -210,7 +210,7 @@ def exp_fragment():
         columns[1].text("Audio B")
         columns[1].audio(B_url)
         intonation_choice = st.radio(
-            "Q1: イントネーション（ピッチの動き、文末の上昇・下降、強調）の自然さについて、どちらの方が自然に聞こえますか？",
+            "Q1: イントネーションの自然さについて、どちらの方が自然に聞こえますか？",
             options=[
                 "Aの方が良い",
                 "Aの方がやや良い",

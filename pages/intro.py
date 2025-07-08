@@ -38,7 +38,7 @@ with st.container(border=True):
             "https://wu-cloud-bucket.s3.ap-northeast-3.amazonaws.com/202507-abnormal-voice-conversion/qvc_enc_p_flow/100.wav"
         )
         st.radio(
-            "Q1: イントネーション（ピッチの動き、文末の上昇・下降、強調）の自然さについて、どちらの方が自然に聞こえますか？",
+            "Q1: イントネーションの自然さについて、どちらの方が自然に聞こえますか？",
             options=[
                 "Aの方が良い",
                 "Aの方がやや良い",
