@@ -117,12 +117,9 @@ if "pairs" not in st.session_state:
         "088",
         "092",
         "093",
-        # Below is conversation
-        "101",
-        "102",
-        "103",
-        "104",
     ]
+    np.random.shuffle(idcs)
+    idcs += ["101", "102", "103", "104"]
     pairs = []
     for idx in idcs:
         pairs.append(
@@ -132,7 +129,7 @@ if "pairs" not in st.session_state:
                 "swap": np.random.rand() >= 0.5,
             }
         )
-    np.random.shuffle(pairs)
+
     st.session_state["pairs"] = pairs
 if "pair_idx" not in st.session_state:
     st.session_state["pair_idx"] = 0
