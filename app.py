@@ -8,6 +8,12 @@ if "agree" not in st.session_state:
 
 if not st.session_state["agree"]:
     with st.container(border=True):
+        st.header("実験概要")
+        st.text(
+            "本実験は、人工知能で合成した発話のクオリティを調査することを目的としています。\n\n"
+            "被験者には、複数の合成音を聞いていただき、発話のクオリティに関する質問にご回答いただきます。"
+        )
+
         st.header("同意書")
         st.text(
             "本実験では、年齢および性別の情報を収集いたします。収集した情報はデータ解析の目的のみに使用し、それ以外の目的には一切使用いたしません。"
