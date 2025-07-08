@@ -85,7 +85,7 @@ if "row_idx" not in st.session_state:
     batch_cells.append(
         {
             "range": f"E{row_idx}",
-            "values": [[datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")]],
+            "values": [[st.session_state["start_time"]]],
         }
     )
     worksheet.batch_update(batch_cells)
