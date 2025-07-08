@@ -233,7 +233,12 @@ def exp_fragment():
         choice_has_not_been_made = (
             intonation_choice == None or intelligibility_choice == None
         )
-        st.button("次へ", on_click=on_form_submitted, disabled=choice_has_not_been_made)
+        st.button(
+            "次へ",
+            on_click=on_form_submitted,
+            disabled=choice_has_not_been_made,
+            help="質問にご回答ください",
+        )
 
     pbar.progress(
         st.session_state["pair_idx"] / num_pairs,
