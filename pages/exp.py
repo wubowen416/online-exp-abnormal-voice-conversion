@@ -4,7 +4,7 @@ import datetime
 import gspread
 import numpy as np
 
-np.random.seed(1234)
+# np.random.seed(1234)
 
 
 def claim_row_atomically(worksheet: gspread.Worksheet, row_idx_to_claim: int):
