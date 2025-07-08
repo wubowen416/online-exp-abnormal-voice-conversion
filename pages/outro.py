@@ -2,13 +2,13 @@ import streamlit as st
 import datetime
 import gspread
 
-st.title("Outro")
+st.title("終わり")
 
 if "uploaded" not in st.session_state:
     st.session_state["uploaded"] = False
 
 if not st.session_state["uploaded"]:
-    st.warning("Do not close the tab! Data is uploading!")
+    st.warning("ただいまデータをアップロード中です。タブを閉じないでください。")
     # Write to worksheet
     worksheet: gspread.Worksheet = st.session_state["worksheet"]
     batch_cells = []
@@ -47,6 +47,6 @@ if not st.session_state["uploaded"]:
     st.session_state["uploaded"] = True
     st.rerun()
 else:
-    st.info("Your response has been recorded.")
-    st.text("Thank you for taking part in our experiment!")
-    st.text("You can now close the tab.")
+    st.info("ご回答は正常に記録されました。")
+    st.text("本実験にご参加いただき、誠にありがとうございました。")
+    st.text("これで終了です。タブを閉じていただいて構いません。")

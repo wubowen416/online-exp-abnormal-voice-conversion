@@ -27,7 +27,7 @@ with st.container(border=True):
     )
 
     with st.container(border=True):
-        st.subheader("音声ペアーを聞いていただき、以下の質問にご回答ください。")
+        st.subheader("音声を聞いていただき、質問にご回答ください。")
         columns = st.columns(2, border=True)
         columns[0].text("Audio A")
         columns[0].audio(
@@ -49,7 +49,7 @@ with st.container(border=True):
             index=None,
         )
         st.radio(
-            "Q2: 明瞭性について，どちらの方が聞き取りやすいと感じますか。",
+            "Q2: 明瞭性について，どちらの方が聞き取りやすいと感じますか?",
             options=[
                 "Aの方が良い",
                 "Aの方がやや良い",

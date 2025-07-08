@@ -1,10 +1,14 @@
 import streamlit as st
 
-st.title("Comment")
-st.warning("Do not refresh the page or close the tab! Your data will be lost!")
+st.title("コメント")
+st.warning(
+    "ページを更新したりタブを閉じたりしないでください。入力済みのデータが失われます。"
+)
 
-comment = st.text_area(label="Comment", placeholder="Input any comment if you have")
+comment = st.text_area(
+    label="コメント欄", placeholder="コメントがあれば入力してください"
+)
 
-if st.button(label="Submit"):
+if st.button(label="提出"):
     st.session_state["comment"] = comment
     st.switch_page("pages/outro.py")

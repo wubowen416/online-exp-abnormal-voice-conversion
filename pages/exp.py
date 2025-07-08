@@ -174,9 +174,11 @@ num_pairs = len(st.session_state["pairs"])
 pair_idx = 0
 
 # Interface
-st.title("Experiment")
-st.warning("Do not refresh the page or close the tab! Your data will be lost!")
-pbar_text = "Progress"
+st.title("実験")
+st.warning(
+    "ページを更新したりタブを閉じたりしないでください。入力済みのデータが失われます。"
+)
+pbar_text = "進捗"
 pbar = st.progress(0, text=f"{pbar_text}: {0}/{num_pairs}")
 
 
@@ -196,11 +198,11 @@ def exp_fragment():
 
     # Place interface
     with st.container(border=True):
-        st.header(f"Listen to audios and answer the following questions")
+        st.subheader(f"音声を聞いていただき、質問にご回答ください。")
         columns = st.columns(2, border=True)
-        columns[0].subheader("Audio A")
+        columns[0].text("Audio A")
         columns[0].audio(A_url)
-        columns[1].subheader("Audio B")
+        columns[1].text("Audio B")
         columns[1].audio(B_url)
         intonation_choice = st.radio(
             "Q1: イントネーション（ピッチの動き、文末の上昇・下降、強調）の自然さについて、どちらの方が自然に聞こえますか？",
@@ -215,7 +217,7 @@ def exp_fragment():
             key=f'intonation_choice_{st.session_state["pair_idx"]}',
         )
         intelligibility_choice = st.radio(
-            "Q2: 明瞭性について，どちらの方が聞き取りやすいと感じますか。",
+            "Q2: 明瞭性について，どちらの方が聞き取りやすいと感じますか?",
             options=[
                 "Aの方が良い",
                 "Aの方がやや良い",
