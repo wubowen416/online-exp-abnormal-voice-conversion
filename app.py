@@ -52,6 +52,6 @@ else:
                 st.session_state["gender"] = gender
                 st.session_state["age"] = age
                 st.session_state["start_time"] = datetime.datetime.now().strftime(
-                    "%Y-%m-%d %H:%M:%S"
+                    "%Y-%m-%d_%H-%M-%S"
                 )
                 st.switch_page("pages/intro.py")

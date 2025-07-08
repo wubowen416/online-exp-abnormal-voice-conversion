@@ -17,7 +17,7 @@ if not st.session_state["uploaded"]:
     batch_cells.append(
         {
             "range": f"F{row_idx}",
-            "values": [[datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")]],
+            "values": [[datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")]],
         }
     )  # Record finishing time
     batch_cells.append(
