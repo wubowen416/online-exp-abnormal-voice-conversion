@@ -237,7 +237,7 @@ def exp_fragment():
             "次へ",
             on_click=on_form_submitted,
             disabled=choice_has_not_been_made,
-            help="質問にご回答ください",
+            help="質問にご回答ください" if choice_has_not_been_made else "",
         )
 
     pbar.progress(

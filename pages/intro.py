@@ -59,7 +59,7 @@ with st.container(border=True):
             ],
             index=None,
         )
-        st.button("提出")
+        st.button("提出", help="下の「実験へ」で次へ行けます")
 
 next_button = st.button(label="実験へ")
 if next_button:
