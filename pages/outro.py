@@ -48,5 +48,6 @@ if not st.session_state["uploaded"]:
     st.rerun()
 else:
     st.info("ご回答は正常に記録されました。")
+    st.text("ご協力ありがとうございました。")
     st.text("本実験にご参加いただき、誠にありがとうございました。")
     st.text("これで終了です。タブを閉じていただいて構いません。")
