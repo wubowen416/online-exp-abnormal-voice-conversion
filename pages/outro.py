@@ -58,7 +58,8 @@ else:
     st.text("本実験にご参加いただき、誠にありがとうございました。")
     st.text("これで終了です。タブを閉じていただいて構いません。")
 
-    st.subheader("Crowd Works ユーザー：合い言葉")
+    st.subheader("Crowd Works ユーザーへ")
+    st.text("Crowd Works以外のユーザーは無視してください")
     st.text(
         "Crowd Worksの画面上の、合言葉を入れる欄に次のひらがな4文字を入力してください。\n\n"
         "「じんこう」"
