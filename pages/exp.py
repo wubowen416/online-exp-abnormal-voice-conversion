@@ -130,6 +130,7 @@ if "pairs" not in st.session_state:
             }
         )
 
+    st.session_state["indices"] = idcs
     st.session_state["pairs"] = pairs
 if "pair_idx" not in st.session_state:
     st.session_state["pair_idx"] = 0

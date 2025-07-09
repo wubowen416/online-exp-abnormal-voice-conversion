@@ -43,6 +43,12 @@ if not st.session_state["uploaded"]:
             ],
         }
     )  # Record intelligibility
+    batch_cells.append(
+        {
+            "range": f"J{row_idx}",
+            "values": [[",".join([str(i) for i in st.session_state["indices"]])]],
+        }
+    )  # Record the shuffled indices
     worksheet.batch_update(batch_cells)
     st.session_state["uploaded"] = True
     st.rerun()
