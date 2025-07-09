@@ -73,7 +73,7 @@ if "row_idx" not in st.session_state:
     while not success:
         success = claim_row_atomically(worksheet, row_idx)
         row_idx += 1
-        time.sleep(1.0)
+        time.sleep(0.01)
     batch_cells = []
     batch_cells.append(
         {"range": f"B{row_idx}", "values": [[st.session_state["userid"]]]}
