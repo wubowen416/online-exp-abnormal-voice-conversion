@@ -141,13 +141,13 @@ if "results" not in st.session_state:
 def choice_to_value(choice: str) -> int:
     value = 0
     match choice:
-        case "Aの方が良い":
+        case "A":
             value = -2
-        case "Aの方がやや良い":
+        case "ややA":
             value = -1
-        case "Bの方がやや良い":
+        case "ややB":
             value = 1
-        case "Bの方が良い":
+        case "B":
             value = 2
     return value
 
@@ -210,11 +210,6 @@ def exp_fragment():
         intonation_choice = st.radio(
             "Q1: イントネーションの自然さについて、どちらの方が自然に聞こえますか？",
             options=[
-                # "Aの方が良い",
-                # "Aの方がやや良い",
-                # "どちらとも言えない",
-                # "Bの方がやや良い",
-                # "Bの方が良い",
                 "A",
                 "ややA",
                 "分からない",
@@ -228,11 +223,6 @@ def exp_fragment():
         intelligibility_choice = st.radio(
             "Q2: 明瞭性について，どちらの方が聞き取りやすいと感じますか?",
             options=[
-                # "Aの方が良い",
-                # "Aの方がやや良い",
-                # "どちらとも言えない",
-                # "Bの方がやや良い",
-                # "Bの方が良い",
                 "A",
                 "ややA",
                 "分からない",
