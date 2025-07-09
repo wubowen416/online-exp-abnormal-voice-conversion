@@ -210,26 +210,38 @@ def exp_fragment():
         intonation_choice = st.radio(
             "Q1: イントネーションの自然さについて、どちらの方が自然に聞こえますか？",
             options=[
-                "Aの方が良い",
-                "Aの方がやや良い",
-                "どちらとも言えない",
-                "Bの方がやや良い",
-                "Bの方が良い",
+                # "Aの方が良い",
+                # "Aの方がやや良い",
+                # "どちらとも言えない",
+                # "Bの方がやや良い",
+                # "Bの方が良い",
+                "A",
+                "ややA",
+                "分からない",
+                "ややB",
+                "B",
             ],
             index=None,
             key=f'intonation_choice_{st.session_state["pair_idx"]}',
+            horizontal=True,
         )
         intelligibility_choice = st.radio(
             "Q2: 明瞭性について，どちらの方が聞き取りやすいと感じますか?",
             options=[
-                "Aの方が良い",
-                "Aの方がやや良い",
-                "どちらとも言えない",
-                "Bの方がやや良い",
-                "Bの方が良い",
+                # "Aの方が良い",
+                # "Aの方がやや良い",
+                # "どちらとも言えない",
+                # "Bの方がやや良い",
+                # "Bの方が良い",
+                "A",
+                "ややA",
+                "分からない",
+                "ややB",
+                "B",
             ],
             index=None,
             key=f'intelligibility_choice_{st.session_state["pair_idx"]}',
+            horizontal=True,
         )
         choice_has_not_been_made = (
             intonation_choice == None or intelligibility_choice == None
