@@ -42,7 +42,7 @@ else:
         )
         age = st.radio(
             label="年齢",
-            options=["20代以下", "20代", "30代", "40代", "50代以上"],
+            options=["20代以下", "20代", "30代", "40代", "50代", "60代", "70代以上"],
             horizontal=True,
             index=None,
         )
