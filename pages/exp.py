@@ -89,6 +89,7 @@ if "row_idx" not in st.session_state:
         }
     )
     worksheet.batch_update(batch_cells)
+    st.session_state["worksheet"] = worksheet
     st.session_state["row_idx"] = row_idx
     st.rerun()
 
