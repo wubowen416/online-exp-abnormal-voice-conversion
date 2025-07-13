@@ -117,7 +117,7 @@ def exp_fragment():
 
     # Place interface
     with st.container(border=True):
-        st.subheader(f"音声を聞いていただき、質問にご回答ください。")
+        st.text(f"音声を聞いていただき、質問にご回答ください。")
         columns = st.columns(2, border=True)
         columns[0].text("Audio A")
         columns[0].audio(A_url)
