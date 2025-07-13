@@ -30,7 +30,7 @@ else:
         userid = st.text_input(
             label="ユーザーID", placeholder="ユーザーIDを半角で入力してください"
         )
-        userid_reinput = st.text_input(
+        userid_re_input = st.text_input(
             label="ユーザーIDの確認",
             placeholder="もう一度ユーザーIDを半角で入力してください",
         )
@@ -50,7 +50,7 @@ else:
         if st.button(
             label="提出", disabled=userid is None or gender is None or age is None
         ):
-            if userid_reinput != userid:
+            if userid_re_input != userid:
                 st.warning(
                     "2回入力されたユーザーIDが一致していません。ユーザーIDを再度ご確認ください。"
                 )

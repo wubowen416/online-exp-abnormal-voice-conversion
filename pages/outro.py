@@ -1,6 +1,7 @@
 import streamlit as st
 import datetime
-import gspread
+import pytz
+from google.cloud import firestore
 
 st.title("終わり")
 
@@ -9,47 +10,32 @@ if "uploaded" not in st.session_state:
 
 if not st.session_state["uploaded"]:
     st.warning("ただいまデータをアップロード中です。タブを閉じないでください。")
-    # Write to worksheet
-    worksheet: gspread.Worksheet = st.session_state["worksheet"]
-    batch_cells = []
-    row_idx = st.session_state["row_idx"]
-    batch_cells.append({"range": f"A{row_idx}", "values": [[2]]})  # Update status
-    batch_cells.append(
-        {
-            "range": f"F{row_idx}",
-            "values": [[datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")]],
-        }
-    )  # Record finishing time
-    batch_cells.append(
-        {"range": f"G{row_idx}", "values": [[st.session_state["comment"]]]}
-    )  # Record comment
-    batch_cells.append(
-        {
-            "range": f"H{row_idx}",
-            "values": [
-                [",".join([str(v) for v in st.session_state["results"]["intonation"]])]
-            ],
-        }
-    )  # Record intonation
-    batch_cells.append(
-        {
-            "range": f"I{row_idx}",
-            "values": [
-                [
-                    ",".join(
-                        [str(v) for v in st.session_state["results"]["intelligibility"]]
-                    )
-                ]
-            ],
-        }
-    )  # Record intelligibility
-    batch_cells.append(
-        {
-            "range": f"J{row_idx}",
-            "values": [[",".join([str(i) for i in st.session_state["indices"]])]],
-        }
-    )  # Record the shuffled indices
-    worksheet.batch_update(batch_cells)
+    # Connect to database
+    db = firestore.Client.from_service_account_info(st.secrets["firestore"])
+
+    # Create document data for Firestore
+    doc_data = {
+        "userid": st.session_state.get("userid", ""),
+        "gender": st.session_state.get("gender", ""),
+        "age": st.session_state.get("age", ""),
+        "comment": st.session_state["comment"],  # Record comment
+        "start_time": st.session_state.get("start_time"),
+        "finishing_time": datetime.datetime.now(pytz.timezone("Asia/Tokyo")).strftime(
+            "%Y-%m-%d_%H-%M-%S"
+        ),  # Record finishing time
+        "intonation": ",".join(
+            [str(v) for v in st.session_state["results"]["intonation"]]
+        ),  # Record intonation
+        "intelligibility": ",".join(
+            [str(v) for v in st.session_state["results"]["intelligibility"]]
+        ),  # Record intelligibility
+        "pair_indices": ",".join(
+            [str(i) for i in st.session_state["pair_indices"]]
+        ),  # Record the shuffled indices
+    }
+
+    # Write to Firestore collection
+    db.collection("responses").add(doc_data)
     st.session_state["uploaded"] = True
     st.rerun()
 else:

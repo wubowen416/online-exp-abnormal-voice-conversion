@@ -1,47 +1,7 @@
 import streamlit as st
-import time
-import datetime
-import gspread
 import numpy as np
 
-# np.random.seed(1234)
-
-
-def claim_row_atomically(worksheet: gspread.Worksheet, row_idx_to_claim: int):
-    """
-    Attempts to claim a row by atomically changing column B from '0' to claim_value.
-    Returns True if successful, False otherwise.
-    """
-    try:
-        find_replace_request = {
-            "findReplace": {
-                "find": "0",  # Value indicating 'available'
-                "replacement": "1",  # Value indicating 'claimed by this user'
-                "matchCase": True,
-                "matchEntireCell": True,
-                "range": {
-                    "sheetId": worksheet.id,
-                    "startRowIndex": row_idx_to_claim,
-                    "endRowIndex": row_idx_to_claim + 1,
-                    "startColumnIndex": 0,  # Assuming status is in Column A (0-indexed B is 1)
-                    "endColumnIndex": 1,
-                },
-            }
-        }
-        body = {"requests": [find_replace_request]}
-        response = worksheet.spreadsheet.batch_update(body)
-
-        # Check if the replacement was made
-        # The exact structure of response['replies'] might need verification
-        if response["replies"] and response["replies"][0].get("findReplace"):
-            occurrences_changed = response["replies"][0]["findReplace"].get(
-                "occurrencesChanged", 0
-            )
-            return occurrences_changed > 0
-        return False
-    except Exception as e:
-        st.error(f"Error during atomic claim for row {row_idx_to_claim}: {e}")
-        return False
+np.random.seed(1234)
 
 
 def get_url(idx: str, name: str = ""):
@@ -49,53 +9,8 @@ def get_url(idx: str, name: str = ""):
     return url
 
 
-# Retrieve data
-if "row_idx" not in st.session_state:
-    st.warning("Retrieving data. Please wait...")
-    try:
-        credentials = st.secrets["connections"]["gsheets"]
-        gc = gspread.service_account_from_dict(info=credentials)
-        sh = gc.open_by_url(credentials["spreadsheet"])
-        worksheet = sh.get_worksheet(0)
-        st.session_state["worksheet"] = worksheet
-    except Exception as e:
-        st.error(f"Error connecting to Google Sheets: {e}")
-        st.error("Attempting rerunning in 3 seconds...")
-        time.sleep(3.0)
-        st.rerun()
-
-    # Get header
-    columns = worksheet.row_values(1)
-
-    # Get a available row to store data
-    row_idx = 1  # Exclude header
-    success = False
-    while not success:
-        success = claim_row_atomically(worksheet, row_idx)
-        row_idx += 1
-        time.sleep(0.5)
-    batch_cells = []
-    batch_cells.append(
-        {"range": f"B{row_idx}", "values": [[st.session_state["userid"]]]}
-    )
-    batch_cells.append(
-        {"range": f"C{row_idx}", "values": [[st.session_state["gender"]]]}
-    )
-    batch_cells.append({"range": f"D{row_idx}", "values": [[st.session_state["age"]]]})
-    batch_cells.append(
-        {
-            "range": f"E{row_idx}",
-            "values": [[st.session_state["start_time"]]],
-        }
-    )
-    worksheet.batch_update(batch_cells)
-    st.session_state["worksheet"] = worksheet
-    st.session_state["row_idx"] = row_idx
-    st.rerun()
-
-
 if "pairs" not in st.session_state:
-    idcs = [
+    indices = [
         "001",
         # "002",
         # "004",
@@ -119,10 +34,10 @@ if "pairs" not in st.session_state:
         "092",
         "093",
     ]
-    np.random.shuffle(idcs)
-    idcs += ["101", "102", "103", "104"]
+    np.random.shuffle(indices)
+    indices += ["101", "102", "103", "104"]
     pairs = []
-    for idx in idcs:
+    for idx in indices:
         pairs.append(
             {
                 "A_url": get_url(idx, "qvc"),
@@ -131,7 +46,7 @@ if "pairs" not in st.session_state:
             }
         )
 
-    st.session_state["indices"] = idcs
+    st.session_state["pair_indices"] = indices
     st.session_state["pairs"] = pairs
 if "pair_idx" not in st.session_state:
     st.session_state["pair_idx"] = 0
@@ -182,8 +97,8 @@ st.title("実験")
 st.warning(
     "ページを更新したりタブを閉じたりしないでください。入力済みのデータが失われます。"
 )
-pbar_text = "進捗"
-pbar = st.progress(0, text=f"{pbar_text}: {0}/{num_pairs}")
+progress_bar_text = "進捗"
+progress_bar = st.progress(0, text=f"{progress_bar_text}: {0}/{num_pairs}")
 
 
 @st.fragment
@@ -244,9 +159,9 @@ def exp_fragment():
             help="質問にご回答ください" if choice_has_not_been_made else "",
         )
 
-    pbar.progress(
+    progress_bar.progress(
         st.session_state["pair_idx"] / num_pairs,
-        f'{pbar_text}: {st.session_state["pair_idx"]}/{num_pairs}',
+        f'{progress_bar_text}: {st.session_state["pair_idx"]}/{num_pairs}',
     )
 
 
