@@ -1,5 +1,6 @@
 import streamlit as st
 import datetime
+import pytz
 
 st.title("ようこそ")
 
@@ -58,7 +59,7 @@ else:
                 st.session_state["userid"] = userid
                 st.session_state["gender"] = gender
                 st.session_state["age"] = age
-                st.session_state["start_time"] = datetime.datetime.now().strftime(
-                    "%Y-%m-%d_%H-%M-%S"
-                )
+                st.session_state["start_time"] = datetime.datetime.now(
+                    pytz.timezone("Asia/Tokyo")
+                ).strftime("%Y-%m-%d_%H-%M-%S")
                 st.switch_page("pages/intro.py")
