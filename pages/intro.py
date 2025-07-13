@@ -63,7 +63,6 @@ with st.container(border=True):
             index=None,
             horizontal=True,
         )
-        st.button("提出", help="下の「実験へ」で次へ行けます")
 
     st.warning(
         "音声を最後まで聞かず、ランダム的に回答されていると判断される場合は、報酬を支払えないことがあります。"
